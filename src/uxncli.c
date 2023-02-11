@@ -21,17 +21,6 @@ static void InitializeROMList()
   char              name[33];
   Boolean           first;
 
-  /* First count number of ROMs */
-  numROMs = 0;
-  first = true;
-  while (!DmGetNextDatabaseByTypeCreator(first, &searchState, NULL, uxncliAppID, false, &cardNo, &dbID))
-  {
-    first = false;
-    DmDatabaseInfo(cardNo, dbID, name, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, &dbType, NULL);
-    if (dbType == uxncliDBType)
-      numROMs++;
-  }
-
   numROMs = 0;
   first = true;
   while (!DmGetNextDatabaseByTypeCreator(first, &searchState, NULL, uxncliAppID, false, &cardNo, &dbID))
