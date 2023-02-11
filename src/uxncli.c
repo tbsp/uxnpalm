@@ -13,13 +13,25 @@ static void *GetObjectPtr(UInt16 objectID)
 static void InitializeROMList()
 {
   UInt16            numROMs;
-  static char     **nameROMs;
+  char            **nameROMs;
   UInt16            cardNo;
   UInt32            dbType;
   DmSearchStateType searchState;
   LocalID           dbID;
   char              name[33];
   Boolean           first;
+
+  /* First count number of ROMs */
+  numROMs = 0;
+  first = true;
+  while (!DmGetNextDatabaseByTypeCreator(first, &searchState, NULL, uxncliAppID, false, &cardNo, &dbID))
+  {
+    first = false;
+    DmDatabaseInfo(cardNo, dbID, name, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, &dbType, NULL);
+    if (dbType == uxncliDBType)
+      numROMs++;
+  }
+  nameROMs = MemPtrNew(numROMs * sizeof(Char *));
 
   numROMs = 0;
   first = true;
