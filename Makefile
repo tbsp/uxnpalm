@@ -5,11 +5,11 @@ CC				=	$(TOOLCHAIN)/m68k-none-elf-gcc
 LD				=	$(TOOLCHAIN)/m68k-none-elf-gcc
 OBJCOPY			=	$(TOOLCHAIN)/m68k-none-elf-objcopy
 COMMON			=	-Wno-multichar -funsafe-math-optimizations -Os -m68000 -mno-align-int -mpcrel -fpic -fshort-enums -mshort
-WARN			=	-Wsign-compare -Wextra -Wall -Werror -Wno-unused-parameter -Wno-old-style-declaration -Wno-unused-function -Wno-unused-variable -Wno-error=cpp -Wno-error=switch
+WARN			=	-Wsign-compare -Wextra -Wall -Werror -Wno-unused-parameter -Wno-old-style-declaration -Wno-unused-function -Wno-unused-variable -Wno-error=cpp -Wno-error=switch -Wno-implicit-fallthrough
 LKR				=	linker.lkr
 CCFLAGS			=	$(LTO) $(WARN) $(COMMON) -I. -ffunction-sections -fdata-sections
 LDFLAGS			=	$(LTO) $(WARN) $(COMMON) -Wl,--gc-sections -Wl,-T $(LKR)
-SRCS			=   src/uxncli.c
+SRCS			=   src/devices/system.c src/uxn.c src/uxncli.c 
 RCP				=	src/uxncli.rcp
 RSC				=	src/
 OBJS			=	$(patsubst %.S,%.o,$(patsubst %.c,%.o,$(SRCS)))

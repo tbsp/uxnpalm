@@ -7,4 +7,7 @@
 
 #define listID_roms 1004
 
-#define buttonID_run 2000
+#define buttonID_run 1005
+
+#define fieldID_desc 1006
+#define outputSize 1024
