@@ -90,3 +90,17 @@ uxn_halt(Uxn *u, Uint8 instr, Uint8 err, Uint16 addr)
 	}
 	return 0;
 }
+
+/* IO */
+
+void
+system_deo(Uxn *u, Uint8 *d, Uint8 port)
+{
+	switch(port) {
+	case 0x2: u->wst = (Stack *)(u->ram + (d[port] ? (d[port] * 0x100) : 0x10000)); break;
+	case 0x3: u->rst = (Stack *)(u->ram + (d[port] ? (d[port] * 0x100) : 0x10100)); break;
+	case 0xe:
+		if(u->wst->ptr || u->rst->ptr) system_inspect(u);
+		break;
+	}
+}

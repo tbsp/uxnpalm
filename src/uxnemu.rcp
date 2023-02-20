@@ -1,0 +1,43 @@
+#include "ui_IDs.h"
+
+DATA "code" ID 1 "code0002.bin"
+
+HEX "code" ID 0
+	0x00 0x00 0x00 0x24		//4 + bytesOfGlobals
+	0x00 0x00 0x00 0x00
+
+HEX "data" ID 0
+	0x00 0x00 0x00 0x00		//ignored if data res ends after init parts
+	
+	//init data 1/3 (zero our globals)
+	0x00 0x00 0x00 0x04		//offset : 0x04
+	0x5f					//data: 32 0x00 bytes
+	0x00					//END of init data
+	
+	//init data 2/3
+	0x00 0x00 0x00 0x00		//offset to start of "initing"
+	0x00					//END of init data
+	
+	//init data 3/3
+	0x00 0x00 0x00 0x00		//offset to start of "initing"
+	0x00					//END of init DATA
+
+FORM ID formID_load AT (0 0 160 160)
+USABLE
+BEGIN
+  TITLE "uxnemu - ROM selection"
+
+  LIST "" ID listID_roms AT (1 17 158 1) VISIBLEITEMS 10
+
+  LABEL "Args: " AUTOID AT (1 PREVBOTTOM+2) FONT 1
+  FIELD ID fieldID_args AT (PREVRIGHT PREVTOP 120 AUTO) LEFTALIGN EDITABLE UNDERLINED MAXCHARS 64
+
+  BUTTON "Run" ID buttonID_run AT (CENTER PREVBOTTOM+3 AUTO AUTO)
+END
+
+FORM ID formID_run AT (0 0 160 160)
+USABLE
+BEGIN
+END
+
+VERSION 1 "1.0.0"
